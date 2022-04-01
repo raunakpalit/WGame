@@ -13,7 +13,7 @@ class SelectWord(WordLibrary):
         
     def selected_word(self):
         # open_the_file = self.word_library.open_file()
-        random_word = self.word_library.select_a_random_word()
+        # random_word = self.word_library.select_a_random_word()
         # print("Word is: {}".format(random_word))
         # return random_word
         return "treat"
@@ -121,11 +121,13 @@ class InputWord(SelectWord):
 
     
     def tries(self):
+        gamewon = False
         while self.attempts != 0:
             uinput = self.user_input_for_word()
             self.input_word = uinput
             tryme = self.check_word_match()
             if tryme == "Matched":
+                gamewon = True
                 break
             elif tryme == "Nomatch":
                 self.attempts -= 1
@@ -138,6 +140,7 @@ class InputWord(SelectWord):
             if self.attempts == 0:
                 print("Oops! You lost the game.\nAll 6 attempts exhausted")
                 print("The five letter word was: {}".format(self.sel_word))
+        return gamewon
 
 
     def user_input_for_word(self):
@@ -145,5 +148,6 @@ class InputWord(SelectWord):
         return user_input
             
 
-a = InputWord()
-a.tries()
+# a = InputWord()
+# a.tries()
+
