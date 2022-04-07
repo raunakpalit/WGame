@@ -17,6 +17,24 @@ class DatabaseEntry:
         # print("Rows: {}".format(rows))
         return rows
     
+    def get_win_loss_stats(self, uname):
+        self.cursorObj.execute("SELECT totalgames FROM wgameusers WHERE username" +"=?", (uname,))
+        total_games = self.cursorObj.fetchone()[0]
+
+        self.cursorObj.execute("SELECT won FROM wgameusers WHERE username" +"=?", (uname,))
+        won = self.cursorObj.fetchone()[0]
+        
+        self.cursorObj.execute("SELECT lost FROM wgameusers WHERE username" +"=?", (uname,))
+        lost = self.cursorObj.fetchone()[0]
+        
+        
+        if not total_games:
+            win_percentage = 0
+        else:
+            win_percentage = (int(won)/int(total_games)) * 100
+
+        return("Total Games Played: {}\nGames Won:          {}\nGames Lost:         {}\nWin %:              {}".format(total_games, won, lost, win_percentage))
+    
     def is_user(self, uname):
         self.cursorObj.execute("SELECT * FROM wgameusers WHERE username" +"=?", (uname,))
         rows = self.cursorObj.fetchall()
@@ -57,7 +75,7 @@ class User(DatabaseEntry):
         self.username = username
         
     def get_fullname(self):
-        return "{} {}".format(self.firstname, self.surname)
+        return "{} {}".format(self.firstname.upper(), self.surname.upper())
     
     def register_user(self):
         pass
@@ -76,5 +94,6 @@ class User(DatabaseEntry):
     def get_details(self):
         self.cursorObj.execute("SELECT * FROM wgameusers WHERE username" +"=?", (self.username,))
         rows = self.cursorObj.fetchall()
-        print("Rows: {}".format(rows))
+        return rows
+        # print("Rows: {}".format(rows))
         

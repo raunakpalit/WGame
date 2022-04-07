@@ -3,7 +3,8 @@ import random
         
 class WordLibrary:
     def __init__(self):
-        self.filename = "five_letter_word_list.txt"
+        # self.filename = "five_letter_word_list.txt"
+        self.filename = "wordlist5letter.txt"
         self.filehandle = None
     
     

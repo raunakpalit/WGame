@@ -12,11 +12,11 @@ class SelectWord(WordLibrary):
         # self.word_library = ['Abuse', 'Anger', 'Beach', 'Birth', 'Chief', 'Maker', 'Lynch', 'Snake', 'Evade']
         
     def selected_word(self):
-        # open_the_file = self.word_library.open_file()
-        # random_word = self.word_library.select_a_random_word()
+        open_the_file = self.word_library.open_file()
+        random_word = self.word_library.select_a_random_word()
         # print("Word is: {}".format(random_word))
-        # return random_word
-        return "treat"
+        return random_word
+        # return "treat"
         
         # return self.select_a_random_word()
         # return random.choice(self.word_library)
@@ -30,7 +30,7 @@ class InputWord(SelectWord):
         self.sel_word = self.selected_word()
         self.attempts = 6
 
-        self.letter_list = ['?', '?', '?', '?', '?']
+        self.letter_list = ['_', '_', '_', '_', '_']
         self.matched_characters = []
         self.unmatched_characters = []
         self.indexmatchdict = {}
@@ -39,7 +39,7 @@ class InputWord(SelectWord):
         self.character_index = None
         
     def split_and_check_each_character(self):
-        print("Input word is: {}".format(self.input_word))
+        # print("Input word is: {}".format(self.input_word))
         # print("Selected word is: {}".format(self.sel_word))
         
         #Wrap the code for indices=============
@@ -52,7 +52,7 @@ class InputWord(SelectWord):
             if character in self.sel_word:
                 character_index = self.input_word.index(character)
                 if character_index == self.sel_word.index(character):
-                    print("Indexing of character {} is correct in {} position".format(character, self.sel_word.index(character)))
+                    print("Indexing of character '{}' is correct in position {}".format(character, self.sel_word.index(character) + 1))
                     self.gcharacter = character
                     self.gcharacter_index = self.sel_word.index(character)
                     self.indexmatchdict[character] = self.sel_word.index(character)
@@ -85,7 +85,7 @@ class InputWord(SelectWord):
             if length_of_iword != 5:
                 print("The length of input word is incorrect. Kindly input a 5 character word")
             else:
-                print("Length correct for the input word")
+                # print("Length correct for the input word")
                 return func(self)
         return wrapper
    
@@ -94,10 +94,10 @@ class InputWord(SelectWord):
         def wrapper(self):
             word_library = WordLibrary()
             if word_library.validate_word(self.input_word):
-                print("Valid Word. Go ahead")
+                # print("Valid Word. Go ahead")
                 return func(self)
             else:
-                print("Invalid word in decorator")
+                print("Invalid word...")
         return wrapper
 
 
@@ -107,10 +107,11 @@ class InputWord(SelectWord):
     def check_word_match(self):
         self.input_word = self.input_word.lower()
         self.sel_word = self.sel_word.lower()
-        print("Iword is: {}".format(self.input_word))
+        # print("Iword is: {}".format(self.input_word))
         # print("Sword is: {}".format(self.sel_word))
         if self.input_word == self.sel_word:
             print("Bingo! Word Matched. Word is {}".format(self.sel_word))
+            print("You won")
             return "Matched"
         else:
             print("Word did not match")

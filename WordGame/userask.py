@@ -18,6 +18,7 @@ def register():
         create_user.create_database_entry()
         login()
         # create_user.get_details()
+
     
 def login():
     auname = input("Enter your username: ")
@@ -27,13 +28,17 @@ def login():
         print("Not a user. Please register yourself first")
         return
     else:
-        print(udata)
+        # print(udata)
         userlogin = User(udata[0][0], udata[0][1], udata[0][2])
-        userlogin.get_details()
+        welcome_name = userlogin.get_fullname()
+        print("WELCOME {}".format(welcome_name))
+        print(userlogin.get_win_loss_stats(auname))
         game = InputWord()
         gameresult = game.tries()
-        res = login_user.update_database_result(auname, gameresult)
-        print("Updated data is: {}".format(res))
+        login_user.update_database_result(auname, gameresult)
+        print(userlogin.get_win_loss_stats(auname))
+        # res = login_user.update_database_result(auname, gameresult)
+        # print("Updated data is: {}".format(res))
         
         
         
