@@ -3,6 +3,9 @@ import sqlite3
 class Login:
     pass
 
+class Register:
+    pass
+
 
 class DatabaseEntry:
     def __init__(self):
@@ -70,9 +73,9 @@ class DatabaseEntry:
 class User(DatabaseEntry):
     def __init__(self, firstname, surname, username):
         super().__init__()
-        self.firstname = firstname
-        self.surname = surname
-        self.username = username
+        self.firstname = firstname.lower()
+        self.surname = surname.lower()
+        self.username = username.lower()
         
     def get_fullname(self):
         return "{} {}".format(self.firstname.upper(), self.surname.upper())

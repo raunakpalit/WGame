@@ -22,6 +22,7 @@ def register():
     
 def login():
     auname = input("Enter your username: ")
+    auname = auname.lower()
     login_user = DatabaseEntry()
     udata = login_user.get_userstat_from_username(auname)
     if not udata:
@@ -32,11 +33,28 @@ def login():
         userlogin = User(udata[0][0], udata[0][1], udata[0][2])
         welcome_name = userlogin.get_fullname()
         print("WELCOME {}".format(welcome_name))
-        print(userlogin.get_win_loss_stats(auname))
-        game = InputWord()
-        gameresult = game.tries()
-        login_user.update_database_result(auname, gameresult)
-        print(userlogin.get_win_loss_stats(auname))
+        userinputforplayorstatcheck = input("To play the game, press 1. To check player statistics, press 2: ")
+        if int(userinputforplayorstatcheck) == 1:
+            game = InputWord()
+            gameresult = game.tries()
+            login_user.update_database_result(auname, gameresult)
+            print(userlogin.get_win_loss_stats(auname))
+            userinputplayagain = input("Hey {}, would you like to give another try(Y/N): ".format(welcome_name))
+            if userinputplayagain.lower() == 'y':
+                pass
+            elif userinputplayagain.lower() == 'n':
+                pass
+            else:
+                print("Invalid input")
+        elif int(userinputforplayorstatcheck) == 2:
+            print(userlogin.get_win_loss_stats(auname))
+        else:
+            print("Incorrect input")
+        # print(userlogin.get_win_loss_stats(auname))
+        # game = InputWord()
+        # gameresult = game.tries()
+        # login_user.update_database_result(auname, gameresult)
+        # print(userlogin.get_win_loss_stats(auname))
         # res = login_user.update_database_result(auname, gameresult)
         # print("Updated data is: {}".format(res))
         
