@@ -8,18 +8,33 @@ from word_exists import WordLibrary
 class SelectWord(WordLibrary):
     def __init__(self):
         self.word_library = WordLibrary()
+        self.selectword = None
+        self.worddict = {}
         # WordLibrary.open_file(self)
         # self.word_library = ['Abuse', 'Anger', 'Beach', 'Birth', 'Chief', 'Maker', 'Lynch', 'Snake', 'Evade']
         
     def selected_word(self):
-        open_the_file = self.word_library.open_file()
-        random_word = self.word_library.select_a_random_word()
-        # print("Word is: {}".format(random_word))
+        # open_the_file = self.word_library.open_file()
+        random_word = self.word_library.select_a_random_word().lower()
+        # random_word = "treat"
+        self.selectword = random_word
+        self.selected_word_letter_index()
         return random_word
+        
+        # # print("Word is: {}".format(random_word))
+        # return random_word
         # return "treat"
         
         # return self.select_a_random_word()
         # return random.choice(self.word_library)
+        
+    def selected_word_letter_index(self):
+        for character in self.selectword:
+            lst = []
+            for count in range(len(self.selectword)):
+                if self.selectword[count] == character:
+                    lst.append(count)
+            self.worddict[character] = lst
     
 
 class InputWord(SelectWord):
@@ -43,20 +58,12 @@ class InputWord(SelectWord):
         # print("Selected word is: {}".format(self.sel_word))
         
         #Wrap the code for indices=============
-        selected_word = self.sel_word
-        input_word = self.input_word
-        
-        
-        # =====================================
+        count = 0
         for character in self.input_word:
-            if character in self.sel_word:
-                character_index = self.input_word.index(character)
-                if character_index == self.sel_word.index(character):
-                    print("Indexing of character '{}' is correct in position {}".format(character, self.sel_word.index(character) + 1))
-                    self.gcharacter = character
-                    self.gcharacter_index = self.sel_word.index(character)
-                    self.indexmatchdict[character] = self.sel_word.index(character)
-                    # self.print_the_word(character, character_index)
+            if character in self.worddict:
+                if count in self.worddict[character]:
+                    print("Indexing of character {} is correct in {} position".format(character, count))
+                    self.letter_list[count] = character
                 else:
                     print("Character found. Indexing of character {} incorrect".format(character))
                 if character not in self.matched_characters:
@@ -64,17 +71,41 @@ class InputWord(SelectWord):
             else:
                 if character not in self.unmatched_characters:
                     self.unmatched_characters.append(character)
-        self.print_the_word(self.gcharacter, self.gcharacter_index)
+            count += 1
+        
+        self.print_the_word()
         print("Matched Characters: {}".format(self.matched_characters))
-        print("Unmatched Characters: {}".format(self.unmatched_characters))
+        print("Unmatched Characters: {}".format(self.unmatched_characters))    
         
         
-    def print_the_word(self, letter, letter_index):
+        # =====================================
+        # for character in self.input_word:
+        #     if character in self.sel_word:
+        #         character_index = self.input_word.index(character)
+        #         if character_index == self.sel_word.index(character):
+        #             print("Indexing of character '{}' is correct in position {}".format(character, self.sel_word.index(character) + 1))
+        #             self.gcharacter = character
+        #             self.gcharacter_index = self.sel_word.index(character)
+        #             self.indexmatchdict[character] = self.sel_word.index(character)
+        #             # self.print_the_word(character, character_index)
+        #         else:
+        #             print("Character found. Indexing of character {} incorrect".format(character))
+        #         if character not in self.matched_characters:
+        #             self.matched_characters.append(character)
+        #     else:
+        #         if character not in self.unmatched_characters:
+        #             self.unmatched_characters.append(character)
+        # self.print_the_word(self.gcharacter, self.gcharacter_index)
+        # print("Matched Characters: {}".format(self.matched_characters))
+        # print("Unmatched Characters: {}".format(self.unmatched_characters))
+        
+        
+    def print_the_word(self):
         # print("Dict: {}".format(self.indexmatchdict))
         # print("letter: {}".format(letter))
         # print("letter_index: {}".format(letter_index))
-        for chars in self.indexmatchdict:
-            self.letter_list[self.indexmatchdict[chars]] = chars
+        # for chars in self.indexmatchdict:
+        #     self.letter_list[self.indexmatchdict[chars]] = chars
         guessed_word = "".join(self.letter_list)
         print("The word guessed so far: {}".format(guessed_word))
  

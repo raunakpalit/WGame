@@ -12,7 +12,7 @@ word_library = ['Abuse', 'Anger', 'Beach', 'Birth', 'Chief', 'Maker', 'Lynch', '
 def selected_word():
     # Selects a word from the word library and positions the characters
     result = random.choice(word_library)
-    return "lynch"
+    return "treat"
 
 def check_letter_index(ch_index, ch_word):
     pass
